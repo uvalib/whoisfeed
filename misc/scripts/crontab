@@ -1,0 +1,1 @@
+5 7 * * *	/home/idm/udb_processing/nightly/misc/scripts/buildSirsiFeed >/dev/null 2>&1

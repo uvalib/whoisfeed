@@ -1,0 +1,18 @@
+#!/bin/sh
+
+APPHOME=/home/idm/udb_processing/nightly
+cd ${APPHOME}/classes
+
+for i in `ls ${APPHOME}/lib/*.jar`
+do
+CLASSPATH=$i:$CLASSPATH
+done
+
+export CLASSPATH
+
+/usr/bin/java BuildFacStaffFeed $1 $2 
+/usr/bin/ssh idm@rijl.lib.virginia.edu "/bin/mv /home/idm/sirsi-feed-faculty-staff.older /home/idm/sirsi-feed-faculty-staff.oldest"
+/usr/bin/ssh idm@rijl.lib.virginia.edu "/bin/mv /home/idm/sirsi-feed-faculty-staff.old /home/idm/sirsi-feed-faculty-staff.older"
+/usr/bin/ssh idm@rijl.lib.virginia.edu "/bin/mv /home/idm/sirsi-feed-faculty-staff /home/idm/sirsi-feed-faculty-staff.old"
+/usr/bin/scp /home/idm/udb_feed/sirsi-feed-faculty-staff idm@rijl.lib.virginia.edu:/home/idm
+
